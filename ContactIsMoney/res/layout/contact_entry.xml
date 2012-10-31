@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!--
+     Copyright (C) 2009 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,17 +14,25 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:padding="@dimen/padding_contact"
+    android:stretchColumns="2" >
+
+    <TextView
+        android:id="@+id/contactEntryText"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent" >
+        android:layout_height="wrap_content"
+        android:text="@+id/contactEntryText" />
 
-        <TextView
-            android:id="@+id/contactEntryText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="@+id/contactEntryText" />
-
-    </RelativeLayout>
-
-    
+    <TextView
+        android:id="@+id/contactSaldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/contactEntryText"
+        android:layout_alignBottom="@+id/contactEntryText"
+        android:layout_alignParentRight="true"
+        android:text="0.00" />
+</RelativeLayout>

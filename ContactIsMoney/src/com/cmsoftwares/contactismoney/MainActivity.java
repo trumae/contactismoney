@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
 		// Run query
 		Uri uri = ContactsContract.Contacts.CONTENT_URI;
 		String[] projection = new String[] { ContactsContract.Contacts._ID,
-				ContactsContract.Contacts.DISPLAY_NAME };
+				ContactsContract.Contacts.DISPLAY_NAME};
 		String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '"
 				+ (mShowInvisible ? "0" : "1") + "'";
 		String[] selectionArgs = null;
