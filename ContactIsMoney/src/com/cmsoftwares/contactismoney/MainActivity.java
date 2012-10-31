@@ -21,6 +21,8 @@ import android.util.Log;
 public class MainActivity extends Activity {
 	private static final String TAG = "ContactIsMoney";
 	private ListView mContactList;
+
+	public static RegistroDBAdapter registroDBAdapter;
 	public static long idContact = 0;
 	public static SimpleCursorAdapter adapter;
 	
@@ -30,13 +32,21 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		registroDBAdapter = new RegistroDBAdapter(this);
+		registroDBAdapter.open();
 		mContactList = (ListView) this.findViewById(R.id.contactsList);
-		mContactList.setOnItemClickListener(mMessageClickedHandler); 
+		mContactList.setOnItemClickListener(mMessageClickedHandler);
 		try {
 			this.populateContactList();
 		} catch (Exception ex) {
+            Log.e("Erro", "Erro populando Contact list " + ex.getMessage());
+		} 
+	}
 
-		}
+	@Override
+	protected void onDestroy() {
+		super.onPause();
+		registroDBAdapter.close();
 	}
 
 	@Override
@@ -50,9 +60,9 @@ public class MainActivity extends Activity {
 		Cursor cursor = getContacts();
 
 		String[] fields = new String[] { ContactsContract.Data.DISPLAY_NAME };
-		adapter = new SimpleCursorAdapter(this,
-				R.layout.contact_entry, cursor, fields,
-				new int[] { R.id.contactEntryText });
+		adapter = new SimpleCursorAdapter(this, R.layout.contact_entry, cursor,
+				fields, new int[] { R.id.contactEntryText });
+		
 		mContactList.setAdapter(adapter);
 	}
 
@@ -61,23 +71,27 @@ public class MainActivity extends Activity {
 		// Run query
 		Uri uri = ContactsContract.Contacts.CONTENT_URI;
 		String[] projection = new String[] { ContactsContract.Contacts._ID,
-				ContactsContract.Contacts.DISPLAY_NAME};
+				ContactsContract.Contacts.DISPLAY_NAME,
+				ContactsContract.Contacts.PHOTO_ID,
+				ContactsContract.Contacts.LAST_TIME_CONTACTED};
 		String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '"
 				+ (mShowInvisible ? "0" : "1") + "'";
 		String[] selectionArgs = null;
 		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME
 				+ " COLLATE LOCALIZED ASC";
 
-		return managedQuery(uri, projection, selection, selectionArgs,
+		Cursor orig = managedQuery(uri, projection, selection, selectionArgs,
 				sortOrder);
+		ContactsCursor cursor = new ContactsCursor(orig);
+		return cursor;
 	}
-	
+
 	// Create a message handling object as an anonymous class.
 	private OnItemClickListener mMessageClickedHandler = new OnItemClickListener() {
 		public void onItemClick(AdapterView<?> adapter, View view, int pos,
 				long id) {
 			idContact = id;
-			goRegistro();			
+			goRegistro();
 		}
 	};
 

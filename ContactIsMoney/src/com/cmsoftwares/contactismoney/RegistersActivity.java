@@ -7,12 +7,10 @@ import com.cmsoftwares.contactismoney.RegistroDBAdapter;;
 
 public class RegistersActivity extends Activity {
 
-	RegistroDBAdapter registroDBAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registers);       
-        registroDBAdapter = new RegistroDBAdapter(this);    
+        setContentView(R.layout.activity_registers);           
     }
 
     @Override
@@ -20,16 +18,6 @@ public class RegistersActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_registers, menu);
         return true;
     }
-    
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registroDBAdapter.open();
-    }
-    
-    @Override
-    protected void onPause() {
-        super.onPause();
-        registroDBAdapter.close();
-    }
+   
+   
 }

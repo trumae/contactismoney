@@ -27,6 +27,8 @@ public class RegistroDBAdapter {
 	public static final int DESCRICAO_COLUMN = 5;
 	public static final String KEY_VALOR = "valor";
 	public static final int VALOR_COLUMN = 6;
+	public static final String KEY_VENCIMENTO = "vencimento";
+	public static final int VENCIMENTO_COLUMN = 7;
 	
 	// TODO: Create public field for each column in your table.
 	// SQL Statement to create a new database.
@@ -38,7 +40,8 @@ public class RegistroDBAdapter {
 			KEY_DATA + " long, " +
 			KEY_CRIADOEM + " long, " +
 			KEY_DESCRICAO + " text, " +
-			KEY_VALOR + " long " +
+			KEY_VALOR + " long, " +
+			KEY_VENCIMENTO + " long " +
 			");";
 
 	// Variable to hold the database instance
