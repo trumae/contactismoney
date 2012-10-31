@@ -4,5 +4,7 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">ContactIsMoney</string>
     <string name="my_contacts">My Contacts</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_registers">Registers</string>
 
 </resources>
