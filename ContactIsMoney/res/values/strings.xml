@@ -7,5 +7,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_registers">Registers</string>
     <string name="all_contacts">All Contacts</string>
+    <string name="title_activity_add_register">Add Register</string>
 
 </resources>
