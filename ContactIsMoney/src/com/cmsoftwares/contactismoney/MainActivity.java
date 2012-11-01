@@ -23,8 +23,9 @@ public class MainActivity extends Activity {
 	private ListView mContactList;
 
 	public static RegistroDBAdapter registroDBAdapter;
-	public static long idContact = 0;
+	public static long selected = 0;
 	public static SimpleCursorAdapter adapter;
+	public static Cursor cursorContacts;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +58,10 @@ public class MainActivity extends Activity {
 
 	private void populateContactList() {
 		// Build adapter with contact entries
-		Cursor cursor = getContacts();
+		cursorContacts = getContacts();
 
 		String[] fields = new String[] { ContactsContract.Data.DISPLAY_NAME };
-		adapter = new SimpleCursorAdapter(this, R.layout.contact_entry, cursor,
+		adapter = new SimpleCursorAdapter(this, R.layout.contact_entry, cursorContacts,
 				fields, new int[] { R.id.contactEntryText });
 		
 		mContactList.setAdapter(adapter);
@@ -90,7 +91,7 @@ public class MainActivity extends Activity {
 	private OnItemClickListener mMessageClickedHandler = new OnItemClickListener() {
 		public void onItemClick(AdapterView<?> adapter, View view, int pos,
 				long id) {
-			idContact = id;
+			selected = pos;
 			goRegistro();
 		}
 	};

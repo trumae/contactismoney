@@ -1,5 +1,6 @@
 package com.cmsoftwares.contactismoney;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.*;
 import android.database.sqlite.*;
@@ -8,7 +9,7 @@ import android.util.Log;
 
 public class RegistroDBAdapter {
 	private static final String DATABASE_NAME = "contactismoney.db";
-	private static final String DATABASE_TABLE = "registro";
+	private static final String DATABASE_TABLE = "register";
 	private static final int DATABASE_VERSION = 1;
 
 	// The index (key) column name for use in where clauses.
@@ -17,32 +18,22 @@ public class RegistroDBAdapter {
 	public static final String KEY_IDCONTACT = "idcontact";
 	public static final int IDCONTACT_COLUMN = 1;
 
-	public static final String KEY_TIPO = "tipo";
-	public static final int TIPO_COLUMN = 2;
 	public static final String KEY_DATA = "data";
-	public static final int DATA_COLUMN = 3;
-	public static final String KEY_CRIADOEM = "criadoem";
-	public static final int CRIADOEM_COLUMN = 4;
-	public static final String KEY_DESCRICAO = "descricao";
-	public static final int DESCRICAO_COLUMN = 5;
-	public static final String KEY_VALOR = "valor";
-	public static final int VALOR_COLUMN = 6;
-	public static final String KEY_VENCIMENTO = "vencimento";
-	public static final int VENCIMENTO_COLUMN = 7;
-	
+	public static final int DATA_COLUMN = 2;
+	public static final String KEY_CREATED = "created";
+	public static final int CREATED_COLUMN = 3;
+	public static final String KEY_DESCRIPTION = "description";
+	public static final int DESCRIPTION_COLUMN = 4;
+	public static final String KEY_VALUE = "value";
+	public static final int VALUE_COLUMN = 5;
+
 	// TODO: Create public field for each column in your table.
 	// SQL Statement to create a new database.
 	private static final String DATABASE_CREATE = "create table "
 			+ DATABASE_TABLE + " (" + KEY_ID
-			+ " integer primary key autoincrement, " + 
-			KEY_IDCONTACT + " text not null," +
-			KEY_TIPO + " text not null, " +
-			KEY_DATA + " long, " +
-			KEY_CRIADOEM + " long, " +
-			KEY_DESCRICAO + " text, " +
-			KEY_VALOR + " long, " +
-			KEY_VENCIMENTO + " long " +
-			");";
+			+ " integer primary key autoincrement, " + KEY_IDCONTACT
+			+ " text not null," + KEY_DATA + " long, " + KEY_CREATED
+			+ " long, " + KEY_DESCRIPTION + " text, " + KEY_VALUE + " long);";
 
 	// Variable to hold the database instance
 	private SQLiteDatabase db;
@@ -67,19 +58,35 @@ public class RegistroDBAdapter {
 		db.close();
 	}
 
-	/*
-	 * public int insertEntry(MyObject _myObject) { // TODO: Create a new
-	 * ContentValues to represent my row // and insert it into the database.
-	 * return index; } public boolean removeEntry(long _rowIndex) { return
-	 * db.delete(DATABASE_TABLE, KEY_ID + "=" + _rowIndex, null) > 0; } public
-	 * Cursor getAllEntries () { return db.query(DATABASE_TABLE, new String[]
-	 * {KEY_ID, KEY_NAME}, null, null, null, null, null); } public MyObject
-	 * getEntry(long _rowIndex) { // TODO: Return a cursor to a row from the
-	 * database and // use the values to populate an instance of MyObject return
-	 * objectInstance; } public boolean updateEntry(long _rowIndex, MyObject
-	 * _myObject) { // TODO: Create a new ContentValues based on the new object
-	 * // and use it to update a row in the database. return true; }
-	 */
+	public long addRecord(Register reg) {
+		ContentValues newRegValues = new ContentValues();
+		newRegValues.put(KEY_IDCONTACT, reg.getIdContact());
+		newRegValues.put(KEY_CREATED, reg.getCreated().getTime());
+		newRegValues.put(KEY_DATA, reg.getData().getTime());
+		newRegValues.put(KEY_DESCRIPTION, reg.getDescription());
+		newRegValues.put(KEY_VALUE, reg.getValue());
+		return db.insert(DATABASE_TABLE, null, newRegValues);
+	}
+
+	public boolean removeRecord(long _rowIndex) {
+		return db.delete(DATABASE_TABLE, KEY_ID + "=" + _rowIndex, null) > 0;
+	}
+
+	public Cursor getHistoryOfContact(long idContact) {
+		return db.query(DATABASE_TABLE, new String[] { KEY_ID, KEY_CREATED,
+				KEY_DATA, KEY_DESCRIPTION, KEY_IDCONTACT, KEY_VALUE },
+				KEY_IDCONTACT + " = " + idContact, null, null, null, null);
+	}
+
+	public long getBalanceOfContact(long idContact) {
+		long res = 0;
+		Cursor c = db.query(DATABASE_TABLE, new String[] { "sum(" + KEY_VALUE
+				+ ")" }, KEY_IDCONTACT + " = " + idContact, null, null, null,
+				null);
+        if(c.moveToFirst())
+        	res = c.getLong(0);
+		return res;
+	}
 
 	private static class RegistroDbHelper extends SQLiteOpenHelper {
 		public RegistroDbHelper(Context context, String name,

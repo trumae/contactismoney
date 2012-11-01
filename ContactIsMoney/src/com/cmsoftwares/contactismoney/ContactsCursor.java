@@ -27,15 +27,15 @@ public class ContactsCursor implements Cursor {
 
 		// copia valores
 		dados = new Vector<Vector<String>>();
-		c.moveToFirst();
-		do {
-			Vector<String> linha = new Vector<String>();
-			linha.add(c.getString(0)); //id
-			linha.add(c.getString(1)); //displayname
-			linha.add(c.getString(2)); //photo_id
-			linha.add(c.getString(3)); //last_time_contacted
-			dados.add(linha);	
-		} while (c.moveToNext());		
+		if (c.moveToFirst())
+			do {
+				Vector<String> linha = new Vector<String>();
+				linha.add(c.getString(0)); // id
+				linha.add(c.getString(1)); // displayname
+				linha.add(c.getString(2)); // photo_id
+				linha.add(c.getString(3)); // last_time_contacted
+				dados.add(linha);
+			} while (c.moveToNext());
 	}
 
 	public void close() {

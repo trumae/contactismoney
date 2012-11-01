@@ -1,5 +1,7 @@
 package com.cmsoftwares.contactismoney;
 
+import java.util.Date;
+
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.Activity;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.cmsoftwares.contactismoney.RegistroDBAdapter;
 
@@ -21,16 +24,26 @@ public class RegistersActivity extends Activity {
 	private ListView mRegistersList;
     private Button btnBuy;
     private Button btnPay;
-    Context context;
-    
+    Context context;    
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registers);
+		context = this;
+				
 		mRegistersList = (ListView) this.findViewById(R.id.registersList);
 		
-		context = this;
+		//preenche cabecalho
+		TextView tname = (TextView) this.findViewById(R.id.textViewRegistersName);
+		TextView tbalance = (TextView) this.findViewById(R.id.textViewRegistersBalance);
+		Cursor cursorContacts = MainActivity.cursorContacts;
+		cursorContacts.moveToPosition((int) MainActivity.selected);
+		tname.setText(cursorContacts.getString(1));
+		long balance = MainActivity.registroDBAdapter.getBalanceOfContact((Long.parseLong(cursorContacts.getString(0))));
+		tbalance.setText((new Long(balance)).toString());
+		
+		//prepara botoes
 		btnBuy = (Button) this.findViewById(R.id.btnBuy);
 		btnPay = (Button) this.findViewById(R.id.btnPay);
 		
