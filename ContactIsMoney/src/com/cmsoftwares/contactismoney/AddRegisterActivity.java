@@ -43,7 +43,7 @@ public class AddRegisterActivity extends Activity {
 				// operacao
 				try{
 				Register reg = new Register();
-				java.util.Date data = new Date(datePickerData.getYear(),
+				java.util.Date data = new Date(datePickerData.getYear() - 1900,
 						datePickerData.getMonth(), datePickerData
 								.getDayOfMonth());
 				reg.setIdContact(RegistersActivity.idContact);

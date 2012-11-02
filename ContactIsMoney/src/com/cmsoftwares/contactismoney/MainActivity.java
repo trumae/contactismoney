@@ -18,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.util.Log;
+
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -31,6 +33,7 @@ public class MainActivity extends Activity {
 	public static SimpleCursorAdapter adapter;
 	public static Cursor cursorContacts;
 	public static NumberFormat moedaFormatter;
+	public static DateFormat dataFormatter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		moedaFormatter = NumberFormat.getCurrencyInstance();
+		dataFormatter = DateFormat.getDateInstance();
 
 		registroDBAdapter = new RegistroDBAdapter(this);
 		registroDBAdapter.open();
