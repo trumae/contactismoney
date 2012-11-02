@@ -23,7 +23,7 @@ public class ContactsCursor implements Cursor {
 		for (int i = 0; i < cols.length; i++) {
 			columns.add(cols[i]);
 		}
-		columns.add("saldo");
+		columns.add("balance");
 
 		// copia valores
 		dados = new Vector<Vector<String>>();
@@ -116,6 +116,10 @@ public class ContactsCursor implements Cursor {
 	}
 
 	public String getString(int arg0) {
+		if (arg0 == 4) {
+			long id = Long.parseLong(dados.elementAt(corrente).elementAt(0));
+			return MainActivity.moedaFormatter.format(MainActivity.registroDBAdapter.getBalanceOfContact(id));
+		}
 		return dados.elementAt(corrente).elementAt(arg0);
 	}
 

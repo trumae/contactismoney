@@ -28,7 +28,7 @@
         android:text="@+id/contactEntryText" />
 
     <TextView
-        android:id="@+id/contactSaldo"
+        android:id="@+id/contactBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/contactEntryText"

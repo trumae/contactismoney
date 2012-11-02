@@ -1,5 +1,6 @@
 package com.cmsoftwares.contactismoney;
 
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -17,6 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.util.Log;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "ContactIsMoney";
@@ -26,12 +30,15 @@ public class MainActivity extends Activity {
 	public static long selected = 0;
 	public static SimpleCursorAdapter adapter;
 	public static Cursor cursorContacts;
-	
+	public static NumberFormat moedaFormatter;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.v(TAG, "Activity State: onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		moedaFormatter = NumberFormat.getCurrencyInstance();
 
 		registroDBAdapter = new RegistroDBAdapter(this);
 		registroDBAdapter.open();
@@ -40,8 +47,8 @@ public class MainActivity extends Activity {
 		try {
 			this.populateContactList();
 		} catch (Exception ex) {
-            Log.e("Erro", "Erro populando Contact list " + ex.getMessage());
-		} 
+			Log.e("Erro", "Erro populando Contact list " + ex.getMessage());
+		}
 	}
 
 	@Override
@@ -60,10 +67,10 @@ public class MainActivity extends Activity {
 		// Build adapter with contact entries
 		cursorContacts = getContacts();
 
-		String[] fields = new String[] { ContactsContract.Data.DISPLAY_NAME };
-		adapter = new SimpleCursorAdapter(this, R.layout.contact_entry, cursorContacts,
-				fields, new int[] { R.id.contactEntryText });
-		
+		String[] fields = new String[] { ContactsContract.Data.DISPLAY_NAME, "balance" };
+		adapter = new SimpleCursorAdapter(this, R.layout.contact_entry,
+				cursorContacts, fields, new int[] { R.id.contactEntryText, R.id.contactBalance });
+
 		mContactList.setAdapter(adapter);
 	}
 
@@ -74,7 +81,7 @@ public class MainActivity extends Activity {
 		String[] projection = new String[] { ContactsContract.Contacts._ID,
 				ContactsContract.Contacts.DISPLAY_NAME,
 				ContactsContract.Contacts.PHOTO_ID,
-				ContactsContract.Contacts.LAST_TIME_CONTACTED};
+				ContactsContract.Contacts.LAST_TIME_CONTACTED };
 		String selection = ContactsContract.Contacts.IN_VISIBLE_GROUP + " = '"
 				+ (mShowInvisible ? "0" : "1") + "'";
 		String[] selectionArgs = null;
@@ -100,4 +107,10 @@ public class MainActivity extends Activity {
 		Intent i = new Intent(this, RegistersActivity.class);
 		startActivity(i);
 	}
+	
+	@Override
+    protected void onResume() {
+        super.onResume();
+        populateContactList();    
+    }
 }
