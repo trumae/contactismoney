@@ -1,15 +1,17 @@
 <resources>
 
     <string name="app_name">ContactIsMoney</string>
-    <string name="menu_settings">Settings</string>
     <string name="title_activity_main">ContactIsMoney</string>
     <string name="my_contacts">My Contacts</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_registers">Registers</string>
     <string name="all_contacts">All Contacts</string>
     <string name="title_activity_add_register">Add Register</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="delete_register_message">Delete this register?</string>
+    <string name="stats">Stats</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_stats">StatsActivity</string>
 
 </resources>

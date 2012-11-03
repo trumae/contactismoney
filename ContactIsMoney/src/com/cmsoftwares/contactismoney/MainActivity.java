@@ -7,22 +7,17 @@ import android.provider.ContactsContract;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.DecimalFormat;
-import java.util.Locale;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "ContactIsMoney";
@@ -117,4 +112,19 @@ public class MainActivity extends Activity {
         super.onResume();
         populateContactList();    
     }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+		int id = item.getItemId();
+	    switch (id) {	        
+	        case R.id.menuStats:
+	        	Intent i = new Intent(this, StatsActivity.class);
+	    		startActivity(i);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 }

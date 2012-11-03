@@ -1,11 +1,6 @@
 package com.cmsoftwares.contactismoney;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Date;
-import java.util.Locale;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -83,12 +77,6 @@ public class RegistersActivity extends Activity {
 		long balance = MainActivity.registroDBAdapter
 				.getBalanceOfContact(idContact);
 		tbalance.setText(MainActivity.moedaFormatter.format(balance));
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_registers, menu);
-		return true;
 	}
 
 	private void populateHistoryList() {

@@ -6,9 +6,7 @@ import java.util.Date;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -77,11 +75,5 @@ public class AddRegisterActivity extends Activity {
 			}
 		});
 
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_add_register, menu);
-		return true;
 	}
 }

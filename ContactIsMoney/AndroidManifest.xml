@@ -41,6 +41,14 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".StatsActivity"
+            android:label="@string/title_activity_stats" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+          
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
