@@ -79,23 +79,23 @@ public class RegistroDBAdapter {
 						+ " desc, " + KEY_CREATED + " desc ");
 	}
 
-	public long getBalanceOfContact(long idContact) {
-		long res = 0;
+	public double getBalanceOfContact(long idContact) {
+		double res = 0;
 		Cursor c = db.query(DATABASE_TABLE, new String[] { "sum(" + KEY_VALUE
 				+ ")" }, KEY_IDCONTACT + " = " + idContact, null, null, null,
 				null);
 		if (c.moveToFirst())
-			res = c.getLong(0);
-		return res;
+			res = c.getDouble(0);
+		return res / 100;
 	}
 
-	public long getSumAllBalance() {
-		long res = 0;
+	public double getSumAllBalance() {
+		double res = 0;
 		Cursor c = db.query(DATABASE_TABLE, new String[] { "sum(" + KEY_VALUE
 				+ ")" }, null, null, null, null, null);
 		if (c.moveToFirst())
-			res = c.getLong(0);
-		return res;
+			res = c.getDouble(0);
+		return res / 100;
 	}
 
 	private static class RegistroDbHelper extends SQLiteOpenHelper {

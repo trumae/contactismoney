@@ -12,7 +12,7 @@ public class HistoryCursor extends MyCursor {
 	@Override
 	public String getString(int arg0) {
 		if (arg0 == getColumnIndex(RegistroDBAdapter.KEY_VALUE)) {
-			long id = Long.parseLong(dados.elementAt(corrente).elementAt(arg0));
+			double id = Double.parseDouble(dados.elementAt(corrente).elementAt(arg0)) / 100;
 			return MainActivity.moedaFormatter
 					.format(id);
 		}

@@ -51,9 +51,9 @@ public class AddRegisterActivity extends Activity {
 				String val = editTextValue.getText().toString();
 				Number num = NumberFormat.getNumberInstance().parse(val);
 				if(RegistersActivity.oper == RegistersActivity.BUY)
-				   reg.setValue(num.longValue());
+				   reg.setValue((long) (100 * num.doubleValue()) );
 				else 
-					reg.setValue(-num.longValue());
+				   reg.setValue((long) (-100 * num.doubleValue()));
 				MainActivity.registroDBAdapter.addRecord(reg);
 				addreg.finish();
 				} catch(Exception e) {

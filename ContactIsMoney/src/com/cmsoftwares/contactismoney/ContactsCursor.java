@@ -17,7 +17,7 @@ public class ContactsCursor extends MyCursor {
 		}
 		if (arg0 == 5) { //balance not formated
 			long id = Long.parseLong(dados.elementAt(corrente).elementAt(0));
-			return (new Long(MainActivity.registroDBAdapter.getBalanceOfContact(id))).toString();
+			return (new Double(MainActivity.registroDBAdapter.getBalanceOfContact(id))).toString();
 		}
 		return super.getString(arg0);
 	}

@@ -74,7 +74,7 @@ public class RegistersActivity extends Activity {
 	}
 
 	private void preencheBalance() {
-		long balance = MainActivity.registroDBAdapter
+		double balance = MainActivity.registroDBAdapter
 				.getBalanceOfContact(idContact);
 		tbalance.setText(MainActivity.moedaFormatter.format(balance));
 	}

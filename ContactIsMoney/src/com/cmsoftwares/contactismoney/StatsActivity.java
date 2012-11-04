@@ -37,23 +37,23 @@ public class StatsActivity extends Activity {
 			int count = MainActivity.cursorContacts.getCount();
 			mTextCountContact.setText((new Integer(count)).toString());
 
-			long sumAllBalance = MainActivity.registroDBAdapter
+			double sumAllBalance = MainActivity.registroDBAdapter
 					.getSumAllBalance();
 			mTextReceivable.setText(MainActivity.moedaFormatter
 					.format(sumAllBalance));
 
-			long media = sumAllBalance / count;
+			double media = sumAllBalance / count;
 			mTextMeanContact.setText(MainActivity.moedaFormatter.format(media));
 
 			Cursor cursor = MainActivity.cursorContacts;
 
 			int idxNome = 1;
 			int idxBalance = 5;
-			long maxBalance = 0;
+			double maxBalance = 0;
 			String maxName = "";
 			if (cursor.moveToFirst())
 				do {
-					long bal = Long.parseLong(cursor.getString(idxBalance));
+					double bal = Double.parseDouble(cursor.getString(idxBalance));
 					if (bal > maxBalance) {
 						maxBalance = bal;
 						maxName = cursor.getString(idxNome);
