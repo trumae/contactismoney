@@ -1,10 +1,12 @@
 package com.cmsoftwares.contactismoney;
 
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.Menu;
@@ -15,9 +17,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.util.Log;
-
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import com.cmsoftwares.contactismoney.provider.DataContentProvider;
+import com.googlecode.chartdroid.core.IntentConstants;
 
 public class MainActivity extends Activity {
 	private static final String TAG = "ContactIsMoney";
@@ -30,12 +33,14 @@ public class MainActivity extends Activity {
 	public static NumberFormat moedaFormatter;
 	public static DateFormat dataFormatter;
 
+	final int DIALOG_CHARTDROID_DOWNLOAD = 1;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.v(TAG, "Activity State: onCreate()");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		moedaFormatter = NumberFormat.getCurrencyInstance();
 		dataFormatter = DateFormat.getDateInstance();
 
@@ -66,9 +71,11 @@ public class MainActivity extends Activity {
 		// Build adapter with contact entries
 		cursorContacts = getContacts();
 
-		String[] fields = new String[] { ContactsContract.Data.DISPLAY_NAME, "balance" };
+		String[] fields = new String[] { ContactsContract.Data.DISPLAY_NAME,
+				"balance" };
 		adapter = new SimpleCursorAdapter(this, R.layout.contact_entry,
-				cursorContacts, fields, new int[] { R.id.contactEntryText, R.id.contactBalance });
+				cursorContacts, fields, new int[] { R.id.contactEntryText,
+						R.id.contactBalance });
 
 		mContactList.setAdapter(adapter);
 	}
@@ -106,25 +113,70 @@ public class MainActivity extends Activity {
 		Intent i = new Intent(this, RegistersActivity.class);
 		startActivity(i);
 	}
-	
+
 	@Override
-    protected void onResume() {
-        super.onResume();
-        populateContactList();    
-    }
-	
+	protected void onResume() {
+		super.onResume();
+		populateContactList();
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+
+		Log.d(TAG, "Called onCreateDialog()");
+
+		switch (id) {
+		case DIALOG_CHARTDROID_DOWNLOAD:
+			return new AlertDialog.Builder(this)
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setTitle("Download ChartDroid")
+					.setMessage(
+							"You need to download ChartDroid to display this data.")
+					.setPositiveButton("Market download",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									startActivity(Market
+											.getMarketDownloadIntent(Market.CHARTDROID_PACKAGE_NAME));
+								}
+							})
+					.setNeutralButton("Web download",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int whichButton) {
+									startActivity(new Intent(
+											Intent.ACTION_VIEW,
+											Market.APK_DOWNLOAD_URI_CHARTDROID));
+								}
+							}).create();
+		}
+		return null;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
+		// Handle item selection
+		Intent i;
 		int id = item.getItemId();
-	    switch (id) {	        
-	        case R.id.menuStats:
-	        	Intent i = new Intent(this, StatsActivity.class);
-	    		startActivity(i);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		switch (id) {
+		case R.id.menuStats:
+			i = new Intent(this, StatsActivity.class);
+			startActivity(i);
+			return true;
+		case R.id.menuGraph:
+			i = new Intent(Intent.ACTION_VIEW, DataContentProvider.PROVIDER_URI);
+            i.putExtra(Intent.EXTRA_TITLE, TemperatureData.DEMO_CHART_TITLE);
+			i.putExtra(IntentConstants.Meta.Axes.EXTRA_FORMAT_STRING_Y, "%.1f°C");
+
+			if (Market.isIntentAvailable(this, i)) {
+				startActivity(i);
+			} else {
+				showDialog(DIALOG_CHARTDROID_DOWNLOAD);
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 }

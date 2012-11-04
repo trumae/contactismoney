@@ -16,7 +16,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewStatsCountContacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -31,14 +31,14 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total a receber" />
+        android:text="Receivable" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textViewStatsReceivable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textViewStatsMeanContacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textViewStatsGreaterBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

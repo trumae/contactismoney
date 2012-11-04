@@ -75,7 +75,8 @@ public class RegistroDBAdapter {
 	public Cursor getHistoryOfContact(long idContact) {
 		return db.query(DATABASE_TABLE, new String[] { KEY_ID, KEY_CREATED,
 				KEY_DATA, KEY_DESCRIPTION, KEY_IDCONTACT, KEY_VALUE },
-				KEY_IDCONTACT + " = " + idContact, null, null, null, KEY_DATA + " desc, " + KEY_CREATED + " desc " );
+				KEY_IDCONTACT + " = " + idContact, null, null, null, KEY_DATA
+						+ " desc, " + KEY_CREATED + " desc ");
 	}
 
 	public long getBalanceOfContact(long idContact) {
@@ -83,8 +84,17 @@ public class RegistroDBAdapter {
 		Cursor c = db.query(DATABASE_TABLE, new String[] { "sum(" + KEY_VALUE
 				+ ")" }, KEY_IDCONTACT + " = " + idContact, null, null, null,
 				null);
-        if(c.moveToFirst())
-        	res = c.getLong(0);
+		if (c.moveToFirst())
+			res = c.getLong(0);
+		return res;
+	}
+
+	public long getSumAllBalance() {
+		long res = 0;
+		Cursor c = db.query(DATABASE_TABLE, new String[] { "sum(" + KEY_VALUE
+				+ ")" }, null, null, null, null, null);
+		if (c.moveToFirst())
+			res = c.getLong(0);
 		return res;
 	}
 

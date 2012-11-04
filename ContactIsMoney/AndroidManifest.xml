@@ -16,6 +16,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Black.NoTitleBar" >
+
+        <!-- The following is a DEMO provider that you should place in your own app. -->
+        <provider
+            android:name="com.cmsoftwares.contactismoney.provider.DataContentProvider"
+            android:authorities="com.cmsoftwares.contactismoney.provider"
+            android:label="Some random data" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main" >
@@ -46,7 +53,6 @@
             android:label="@string/title_activity_stats" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-          
             </intent-filter>
         </activity>
     </application>

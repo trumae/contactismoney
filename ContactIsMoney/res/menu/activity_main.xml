@@ -1,3 +1,4 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">    
     <item android:id="@+id/menuStats" android:title="@string/stats"></item>
+    <item android:id="@+id/menuGraph" android:title="Graph" android:visible="false"></item>
 </menu>
