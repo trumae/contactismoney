@@ -10,7 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date" />
+        android:text="@string/date" />
 
     <DatePicker
         android:id="@+id/datePickereditRegDate"
@@ -21,7 +21,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description" />
+        android:text="@string/description" />
 
     <EditText
         android:id="@+id/editTextAddRegDescription"
@@ -37,7 +37,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Value" />
+        android:text="@string/value" />
 
     <EditText
         android:id="@+id/editTextAddRegValue"
@@ -48,24 +48,25 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="0.15" >
-
-        <Button
-            android:id="@+id/btnAddRegOk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@android:drawable/btn_default"
-            android:text="Ok"
-            android:textColor="@android:color/primary_text_light" />
 
         <Button
             android:id="@+id/btnAddRegCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Cancel" />
+            android:layout_weight="0.40"
+            android:text="@string/cancel"
+            tools:ignore="NestedWeights" />
+
+        <Button
+            android:id="@+id/btnAddRegOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:background="@android:drawable/btn_default"
+            android:text="@string/ok"
+            android:textColor="@android:color/primary_text_light" />
     </LinearLayout>
 
 </LinearLayout>
